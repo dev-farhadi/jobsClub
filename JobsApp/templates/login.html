@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form method="post" action="{% url 'login' %}" style="border:1px solid #ccc">
+            {% csrf_token %}
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" >
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" >
+            {%if error%}
+            <span style="color: red;">{{error}}</span>
+            {%endif%}
+
+            <button type="submit" class="signupbtn">Sign Up</button>
+        </form>
+    </body>
+</html>

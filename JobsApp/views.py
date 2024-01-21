@@ -14,13 +14,13 @@ def signup(request):
         if User.objects.filter(username=username).exists():
            template= loader.get_template('signup.html')
            context = {
-              'error': 'bad bad'
+              'error': 'Username Exist!'
            }
            return HttpResponse(template.render(context, request))
         else:
          user = User(username=username, password=password, name=name, family=family)
          user.save()
-         return redirect('home') # Redirect to a success page   
+         return redirect('login') # Redirect to a login page   
 
     return render(request, 'signup.html')
 
@@ -28,6 +28,22 @@ def home(request):
   template = loader.get_template('home.html')
 
   return HttpResponse(template.render())
+
+def login(request):
+   if request.method=='POST':
+      username = request.POST['username']
+      password = request.POST['password']
+
+      if User.objects.filter(username=username, password=password).exists():
+         return redirect('home')
+      else:
+        template = loader.get_template('login.html')
+        context = {
+           'error' : 'username or password wrong!',
+           'asdasd' : 'asdasdasd'
+        }
+        return HttpResponse(template.render(context, request))
+      
+   return render(request, 'login.html')   
    
 
-# Create your views here.
