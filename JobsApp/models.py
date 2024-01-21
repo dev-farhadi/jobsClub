@@ -1,14 +1,11 @@
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
 from django.db import models
 
-class User(models.Model):
+class CustomUser(AbstractUser):
+    # add any custom fields here
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    family = models.CharField(max_length=100)
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=50)
 
-
-
-    class Meta:
-        app_label = 'JobsApp'
-# Create your models here.
+User = get_user_model()
