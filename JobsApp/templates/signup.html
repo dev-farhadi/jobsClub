@@ -4,7 +4,7 @@
 
     </head>
     <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
+        body {font-family: Arial, Helvetica, sans-serif; background-color: #a9fadc;}
         * {box-sizing: border-box}
         
         /* Full-width input fields */
@@ -30,7 +30,7 @@
         
         /* Set a style for all buttons */
         button {
-          background-color: #04AA6D;
+          background-color: #04aa99;
           color: white;
           padding: 14px 20px;
           margin: 8px 0;
@@ -73,7 +73,12 @@
           clear: both;
           display: table;
         }
-        form {width: 70%;}
+        form {
+            width: 50%;
+            padding-top: 15rem;
+            filter: drop-shadow(2px 8px 4px #929292);
+        
+        }
 
         .sign{
             display: flex; justify-content: center;
@@ -87,10 +92,10 @@
         </style>
     <body>
         <div class="sign">
-            <form method="post" action="{% url 'signup' %}" style="border:1px solid #ccc">
+            <form method="post" action="{% url 'signup' %}">
             {% csrf_token %}
             <div class="container">
-                <h1>Sign Up</h1>
+                <h1 style="display: flex; justify-content: center;">Sign Up</h1>
                 <p>Please fill in this form to create an account.</p>
                 <hr>
             

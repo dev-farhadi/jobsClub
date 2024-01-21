@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import User
 from django.http import HttpResponse
 from django.template import loader
+from django.contrib.auth import authenticate, login
 
 def signup(request):
     if request.method == 'POST':
@@ -9,7 +10,6 @@ def signup(request):
         family = request.POST['family']
         username = request.POST['username']
         password = request.POST['password']
-
 
         if User.objects.filter(username=username).exists():
            template= loader.get_template('signup.html')
@@ -30,20 +30,19 @@ def home(request):
   return HttpResponse(template.render())
 
 def login(request):
-   if request.method=='POST':
-      username = request.POST['username']
-      password = request.POST['password']
+    username = request.POST["username"]
+    password = request.POST["password"]
 
-      if User.objects.filter(username=username, password=password).exists():
-         return redirect('home')
-      else:
-        template = loader.get_template('login.html')
-        context = {
-           'error' : 'username or password wrong!',
-           'asdasd' : 'asdasdasd'
-        }
-        return HttpResponse(template.render(context, request))
+    if User.objects.filter(username=username, password=password).exists():  
       
-   return render(request, 'login.html')   
+      user = authenticate(request, username=username, password=password)
    
-
+      if user is not None:
+        login(request, user)
+        return redirect('home')
+    else:
+       template = loader.get_template('login.html')  
+       context = {
+              'error': 'Username or password is wrong!'
+           }
+    return HttpResponse(template.render(context, request))
