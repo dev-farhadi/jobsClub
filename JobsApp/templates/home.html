@@ -5,5 +5,15 @@
     </head>
     <body>
         <h1>home</h1>
+        {%if user.is_authenticated %}
+        <h1>{{user.username}}</h1>
+        {%endif%}
+        {%if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+            {%csrf_token%}
+            <button type="submit">logout</button>
+        </form>
+        {%endif%}
+
     </body>
 </html>
