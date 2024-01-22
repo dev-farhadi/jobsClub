@@ -27,11 +27,12 @@ def loginView(request):
     else:
      form = AuthenticationForm()
      return render(request, 'login.html', {'form' : form})
+    
 
 def logoutView(request):
    if request.method == 'POST':
       logout(request)
-      return redirect('home')
+      return redirect('login')
    
 
 def homeView(request):

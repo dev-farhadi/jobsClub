@@ -1,19 +1,97 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <link href='https://fonts.googleapis.com/css?family=Agbalumo' rel='stylesheet'>
     </head>
-    <body>
-        <h1>home</h1>
-        {%if user.is_authenticated %}
-        <h1>{{user.username}}</h1>
-        {%endif%}
-        {%if user.is_authenticated %}
-        <form action="{% url 'logout' %}" method="post">
-            {%csrf_token%}
-            <button type="submit">logout</button>
-        </form>
-        {%endif%}
+    <style>    
+    body {
+        margin :0;
+        padding: 0;
+        font-family: 'Agbalumo';font-size: 22px;
 
+}
+.contain{
+    display: flex;
+        justify-content: center;
+}
+.nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0.5rem;
+  overflow: hidden;
+  background-color: #333;
+  width: 70%;
+  border-radius: 1.5rem;
+}
+
+.nav li {
+  float: left;
+}
+
+.nav li:last-child {
+  border-right: none;
+}
+
+.nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-radius: 2rem;
+}
+
+.nav li a:hover:not(.active) {
+  background-color: #000000;
+}
+.nav form > button{
+    margin: 0;
+    padding: 0.5rem;
+    margin-top: 5px;
+    font-size: medium;
+}
+.nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    font-size: medium;
+}
+form button{
+        background-color: #ffbc7a;
+        color: rgb(255, 255, 255);
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-family: 'Agbalumo';font-size: 22px;
+        margin-bottom: 3rem;
+        margin-top: 3rem;
+        border-radius: 1rem;
+    }
+</style>
+    <body>
+        <div class="nav">   
+            <ul>
+           <li><a href="#home">Home</a></li>
+           <li><a href="#news">Jobs</a></li>
+           <li><a href="#contact">Add Job</a></li>
+           {%if user.is_authenticated%}<li style="float:right"><form action="{% url 'logout' %}" method="POST">
+               {%csrf_token%}
+               <button type="submit">Logout</button>
+               
+           </form>
+       </li>
+       {%else%}
+       <li style="float:right"><form action="{% url 'login' %}">
+           <button type="submit">Login</button>
+           
+       </form>
+   </li>
+       {%endif%}
+           
+         </ul>
+       </div>
     </body>
 </html>
