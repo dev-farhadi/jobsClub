@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Agbalumo' rel='stylesheet'>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
 </head>
+<style>
+    body {
+        margin :0;
+        padding: 0;
+        font-family: 'Agbalumo';font-size: 22px;
+        display: flex;
+        justify-content: center;
+}
+    .helptext{
+        font-size: small;
+        color: #9d4e00;
+
+}
+    .signup{
+        display: flex;
+        justify-self: center;
+        align-items: center;
+        flex-direction: column;
+        width: 50%;
+        margin-top: 20rem;
+        background-color: #ffeedc;
+        border-radius: 5rem;
+    }
+
+    form button{
+        background-color: #ffbc7a;
+        color: rgb(255, 255, 255);
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        font-family: 'Agbalumo';font-size: 22px;
+        margin-bottom: 3rem;
+        margin-top: 3rem;
+        border-radius: 1rem;
+    }
+    form button:hover{
+        background-color: #fba754;
+    }
+    input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border-radius: 1rem;
+        box-sizing: border-box;
+        font-size: medium;
+        background-color: rgb(255, 249, 241);
+}
+</style>
 <body>
-    <h1>Signup</h1>
+    <div class="signup">
+        <h1>Signup</h1>    
     <form action="" method="post">
         {%csrf_token%}
         {{form}}
         <button type="submit">Sign up</button>
     </form>
+</div>
+
 </body>
 </html>
