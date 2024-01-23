@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 class Jobs(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -9,3 +10,7 @@ class Jobs(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+class JobsUser(models.Model):
+    job_id = models.ForeignKey(Jobs, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

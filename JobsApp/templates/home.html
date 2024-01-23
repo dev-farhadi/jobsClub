@@ -93,5 +93,16 @@ form button{
            
          </ul>
        </div>
+       <div style="display: flex;">
+        {% for job in jobs %}
+        <div>
+        <h3>{{job.position}}</h2>
+        <h4>{{job.company}}</h4>
+        <p>{{job.description}}</p>
+        <a href="{% url 'apply' job.id %}">apply</a>
+        </div>
+        {% endfor %}
+       </div>
+
     </body>
 </html>
