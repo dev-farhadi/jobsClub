@@ -70,13 +70,32 @@ form button{
         margin-top: 3rem;
         border-radius: 1rem;
     }
+    .pagination a{
+      text-decoration: none;
+      color: white;
+      background-color: #ffbc7a;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+    .pagination{
+      display: flex;
+      justify-content: center;
+      margin: 1rem;
+    }
+    .current-page{
+      background-color: #ffbc7a;
+      margin-right:1rem ;
+      padding: 0.2rem;
+      border-radius: 1rem;
+    }
 </style>
     <body>
         <div class="nav">   
             <ul>
-           <li><a href="#home">Home</a></li>
-           <li><a href="#news">Jobs</a></li>
-           <li><a href="#contact">Add Job</a></li>
+           <li><a href="{% url 'home' %}">Home</a></li>
+           <li><a href="{% url 'jobs'%}">Jobs</a></li>
+           <li><a href="{% url 'admin:index' %}">Add Job</a></li>
+           <li style="float: right;"><a href="{%url 'signup'%}">Signup</a></li>
            {%if user.is_authenticated%}<li style="float:right"><form action="{% url 'logout' %}" method="POST">
                {%csrf_token%}
                <button type="submit">Logout</button>
@@ -93,14 +112,19 @@ form button{
            
          </ul>
        </div>
-       <div style="display: flex;">
-        {% for job in jobs %}
-        <div>
+       <div style="display: flex; flex-wrap: wrap;align-items: center; justify-content: center; ">
+        {% for job in page_obj %}
+        <div style="margin: 2rem;display: flex; flex-direction: column; align-items: center; width: 55%; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
         <h3>{{job.position}}</h2>
         <h4>{{job.company}}</h4>
-        <p>{{job.description}}</p>
-        <a href="{% url 'apply' job.id %}">apply</a>
+        <p style="font-size: medium; color: #9d4e00;">{{job.description}}</p>
+        <form action="{% url 'apply' job.id %}" method="POST">
+          {%csrf_token%}
+          <button type="submit">apply</button>
+      </form>
         </div>
+        {% empty %}
+        <h1>Not Found.</h1>
         {% endfor %}
        </div>
 

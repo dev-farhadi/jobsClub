@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Agbalumo' rel='stylesheet'>
     <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Agbalumo' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>applyed</title>
+    <title>JobsList</title>
 </head>
 <style>
-
 body {
   margin :0;
   padding: 0;
@@ -70,13 +69,31 @@ form button{
         margin-top: 3rem;
         border-radius: 1rem;
     }
+    .pagination a{
+      text-decoration: none;
+      color: white;
+      background-color: #ffbc7a;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+    }
+    .pagination{
+      display: flex;
+      justify-content: center;
+      margin: 1rem;
+    }
+    .current-page{
+      background-color: #ffbc7a;
+      margin-right:1rem ;
+      padding: 0.2rem;
+      border-radius: 1rem;
+    }
 </style>
 <body>
     <div class="nav">   
         <ul>
        <li><a href="{% url 'home' %}">Home</a></li>
        <li><a href="{% url 'jobs'%}">Jobs</a></li>
-       <li><a href="#contact">Add Job</a></li>
+       <li><a href="{% url 'admin:index' %}">Add Job</a></li>
        <li style="float: right;"><a href="{%url 'signup'%}">Signup</a></li>
        {%if user.is_authenticated%}<li style="float:right"><form action="{% url 'logout' %}" method="POST">
            {%csrf_token%}
@@ -94,14 +111,28 @@ form button{
        
      </ul>
    </div>
-   <div style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
-    {% if d %}
-    <h1 style="text-decoration: underline;color: #9d4e00;">applyed before!</h1>
-    {% else %}
-    <h1 style="text-decoration: underline;color: #9d4e00;">it's done. you apply for this job!</h1>
-    {% endif %} 
-    <a style="text-decoration:none; background-color: #ffbc7a;  color: rgb(255, 255, 255); padding: 14px 20px; margin: 8px 0; border: none;cursor: pointer;font-family: 'Agbalumo';font-size: 22px; margin-bottom: 3rem;margin-top: 3rem; border-radius: 1rem;" href="{%url 'home'%}"><-Go Back</a>
+   <div style="display: flex; flex-wrap: wrap;align-items: center; justify-content: center; ">
+    {% for job in page_obj %}
+    <div style="margin: 2rem;display: flex; flex-direction: column; align-items: center; width: 55%; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
+    <h3>{{job.position}}</h2>
+    <h4>{{job.company}}</h4>
+    <p style="font-size: medium; color: #9d4e00;">{{job.description}}</p>
+    <form action="{% url 'apply' job.id %}" method="POST">
+      {%csrf_token%}
+      <button type="submit">apply</button>
+  </form>
+    </div>
+    {% empty %}
+    <h1>Not Found.</h1>
+    {% endfor %}
+   </div>
+   <div class="pagination">
+    {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
 </div>
-   
 </body>
 </html>

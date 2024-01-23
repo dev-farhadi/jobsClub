@@ -106,26 +106,27 @@
 </style>
 <body>
     <div class="nav">   
-         <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#news">Jobs</a></li>
-        <li><a href="#contact">Add Job</a></li>
-        {%if user.is_authenticated%}<li style="float:right"><form action="{% url 'logout' %}" method="POST">
-            {%csrf_token%}
-            <button type="submit">Logout</button>
-            
-        </form>
-    </li>
-    {%else%}
-    <li style="float:right"><form action="{% url 'login' %}">
-        <button type="submit">Login</button>
-        
-    </form>
+        <ul>
+       <li><a href="{% url 'home' %}">Home</a></li>
+       <li><a href="{% url 'jobs'%}">Jobs</a></li>
+       <li><a href="{% url 'admin:index' %}">Add Job</a></li>
+       <li style="float: right;"><a href="{%url 'signup'%}">Signup</a></li>
+       {%if user.is_authenticated%}<li style="float:right"><form action="{% url 'logout' %}" method="POST">
+           {%csrf_token%}
+           <button type="submit">Logout</button>
+           
+       </form>
+   </li>
+   {%else%}
+   <li style="float:right"><form action="{% url 'login' %}">
+       <button type="submit">Login</button>
+       
+   </form>
 </li>
-    {%endif%}
-        
-      </ul>
-    </div>
+   {%endif%}
+       
+     </ul>
+   </div>
 
 <div class="contain">
         <div class="signup">
