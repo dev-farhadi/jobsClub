@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Agbalumo' rel='stylesheet'>
     <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Agbalumo' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>job</title>
 </head>
 <style>
     body {
-        margin :0;
-        padding: 0;
-        font-family: 'Agbalumo';font-size: 22px;
+  margin :0;
+  padding: 0;
+  font-family: 'Agbalumo';font-size: 22px;
 
 }
 .nav ul {
@@ -59,45 +59,16 @@
 form button{
         background-color: #ffbc7a;
         color: rgb(255, 255, 255);
-        padding: 12px 20px;
+        padding: 14px 20px;
         margin: 8px 0;
         border: none;
         cursor: pointer;
         width: 100%;
-        font-family: 'Agbalumo';
-        font-size: 22px;
+        font-family: 'Agbalumo';font-size: 22px;
         margin-bottom: 3rem;
-        margin-top: 2.3rem;
-        border-radius: 0.8rem;
+        margin-top: 3rem;
+        border-radius: 1rem;
     }
-    .contain{
-        display: flex;
-        justify-content: center;
-    }
-    .login{
-        display: flex;
-        justify-self: center;
-        align-items: center;
-        flex-direction: column;
-        width: 40%;
-        margin-top: 20rem;
-        background-color: #ffeedc;
-        border-radius: 3rem;
-    }
-
-    form button:hover{
-        background-color: #fba754;
-    }
-    input[type=text], input[type=password] {
-        width: 100%;
-        padding: 9px 15px;
-        margin: 8px 0;
-        display: inline-block;
-        border-radius: 0.8rem;
-        box-sizing: border-box;
-        font-size: medium;
-        background-color: rgb(255, 249, 241);
-}
 </style>
 <body>
     <div class="nav">   
@@ -122,18 +93,22 @@ form button{
        
      </ul>
    </div>
-   <div class="contain">
-    <div class="login">
-        <h1>Login</h1>
-    <form action="" method="post">
-        {%csrf_token%}
-        {{form}}
-        <br>
-        <button  type="submit">Login</button>
-    </form>
-</div>
-</div>
-    
-
+   <div style="display: flex; flex-wrap: wrap;align-items: center; justify-content: center; ">
+    {% for j in job %}
+    <div style="margin: 2rem;display: flex; flex-direction: column; align-items: center; width: 60%; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
+    <h3>{{j.position}}</h2>
+    <h4>{{j.company}}</h4>
+    <p style="color: #9d4e00;">{{j.description}}</p>
+    <hr style="background-color: #000000; width: 70%; height: 2px;"/>
+    <p style="opacity: 0.3; display: flex; font-size: medium;">{{j.address}}</p>
+    <form action="{% url 'apply' j.id %}" method="POST">
+      {%csrf_token%}
+      <button type="submit">Apply</button>
+  </form>
+    </div>
+    {% empty %}
+    <h1>Not Found.</h1>
+    {% endfor %}
+   </div>
 </body>
 </html>

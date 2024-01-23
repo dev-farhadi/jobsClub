@@ -57,16 +57,13 @@ body {
     font-size: medium;
 }
 form button{
-        background-color: #ffbc7a;
+    background-color: #ffbc7a;
         color: rgb(255, 255, 255);
-        padding: 14px 20px;
-        margin: 8px 0;
+        padding: 8px 15px;
         border: none;
         cursor: pointer;
         width: 100%;
         font-family: 'Agbalumo';font-size: 22px;
-        margin-bottom: 3rem;
-        margin-top: 3rem;
         border-radius: 1rem;
     }
     .pagination a{
@@ -111,15 +108,15 @@ form button{
        
      </ul>
    </div>
-   <div style="display: flex; flex-wrap: wrap;align-items: center; justify-content: center; ">
+   <div style="display: flex; justify-content: center;  flex-shrink: 3; width: 100%; flex-wrap: wrap;">
     {% for job in page_obj %}
-    <div style="margin: 2rem;display: flex; flex-direction: column; align-items: center; width: 55%; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
+    <div style="margin: 1.8rem; display: flex; flex-direction: column; align-items: center; width: 17%; justify-content: center; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
     <h3>{{job.position}}</h2>
     <h4>{{job.company}}</h4>
-    <p style="font-size: medium; color: #9d4e00;">{{job.description}}</p>
-    <form action="{% url 'apply' job.id %}" method="POST">
+    <h6 style="color: #9d4e00; opacity: 0.3;">{{job.address}}</h6>
+    <form action="{% url 'job' job.id %}" method="POST">
       {%csrf_token%}
-      <button type="submit">apply</button>
+      <button type="submit">See More</button>
   </form>
     </div>
     {% empty %}

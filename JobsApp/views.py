@@ -63,3 +63,7 @@ def jobsView(request):
    page_number = request.GET.get("page")
    page_obj = paginator.get_page(page_number)
    return render(request, 'jobs.html', {'page_obj' : page_obj})
+
+def job(request,jv):
+   job = Jobs.objects.filter(id=jv)
+   return render(request, "job.html", {'job' : job})

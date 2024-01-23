@@ -5,6 +5,7 @@ class Jobs(models.Model):
     id = models.BigAutoField(primary_key=True)
     company = models.CharField(max_length=255)
     position = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, default='N/A')
     description = models.TextField(max_length=1080)
 
 
