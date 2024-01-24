@@ -61,7 +61,7 @@ def jobsView(request):
 
    if request.method == 'POST':
       selected = request.POST.get('selected_option')
-      jobs = Jobs.objects.filter(category=selected)
+      jobs = Jobs.objects.filter(category__cat=selected)
       paginator = Paginator(jobs, 5)
       page_number = request.GET.get("page")
       page_obj = paginator.get_page(page_number)

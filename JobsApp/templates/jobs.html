@@ -108,15 +108,13 @@ form button{
        
      </ul>
    </div>
-   <h1>{{selected}}</h1>
+   <h1 style="text-align: center; color: #9d4e00;">{{selected}}</h1>
    <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
-    <span>order by: </span>
     <form style="display: flex; justify-content: center;" action="{%url 'jobs' %}" method="POST"> 
       {%csrf_token%}
       <select name="selected_option" style="width: auto; text-align: center;font-family: 'Agbalumo';font-size: 22px; border-radius: 1.5rem; background-color: #ffeedc; font-size: medium;">
-      <option>All</option>
+        <option>select your order</option>
     {%for c in opt%}
-    
       <option>{{c.cat}}</option>
     {%endfor%}
     </select>

@@ -34,7 +34,7 @@ class Jobs(models.Model):
     description = models.TextField(max_length=1080)
 
     def __str__(self):
-        return str(self.id)
+        return str(self.category)
     
     
 class JobsUser(models.Model):
