@@ -113,7 +113,6 @@ form button{
         {% for job in page_obj %}
         <div style="margin: 1.8rem; display: flex; flex-direction: column; align-items: center; width: 17%; justify-content: center; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
         <h3>{{job.position}}</h2>
-        <h4>{{job.company}}</h4>
         <h6 style="color: #9d4e00; opacity: 0.3;">{{job.address}}</h6>
         <form action="{% url 'job' job.id %}" method="POST">
           {%csrf_token%}
