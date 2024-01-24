@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Jobs,JobsUser
+from .models import Jobs,JobsUser, JobCategory
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -62,7 +62,8 @@ def jobsView(request):
    paginator = Paginator(jobs, 5)
    page_number = request.GET.get("page")
    page_obj = paginator.get_page(page_number)
-   return render(request, 'jobs.html', {'page_obj' : page_obj})
+   opt = JobCategory.objects.all()
+   return render(request, 'jobs.html', {'page_obj' : page_obj, 'opt' : opt})
 
 def job(request,jv):
    job = Jobs.objects.filter(id=jv)

@@ -108,6 +108,17 @@ form button{
        
      </ul>
    </div>
+   
+   <div style="display: flex; justify-content: center; width: 100%; margin-top: 1rem;">
+    <span>order by: </span>
+    <select style="width: 50%; text-align: center;font-family: 'Agbalumo';font-size: 22px; border-radius: 1.5rem; background-color: #ffeedc; font-size: medium;">
+    {%for c in opt%}
+    <option><a href="">{{c.cat}}</a></option>
+    {%endfor%}
+    </select>
+
+   </div>
+
    <div style="display: flex; justify-content: center;  flex-shrink: 3; width: 100%; flex-wrap: wrap;">
     {% for job in page_obj %}
     <div style="margin: 1.8rem; display: flex; flex-direction: column; align-items: center; width: 17%; justify-content: center; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
