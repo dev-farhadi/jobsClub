@@ -96,8 +96,9 @@ form button{
    <div style="display: flex; flex-wrap: wrap;align-items: center; justify-content: center; ">
     {% for j in job %}
     <div style="margin: 2rem;display: flex; flex-direction: column; align-items: center; width: 60%; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
-    <h3>{{j.position}}</h2>
-    <p style="color: #9d4e00;">{{j.description}}</p>
+    <h3>{{j.position}}</h3>
+    <h4>{{j.employer}}</h4>
+      <p style="color: #9d4e00; white-space: pre-line;">{{j.description}}</p>
     <hr style="background-color: #000000; width: 70%; height: 2px;"/>
     <p style="opacity: 0.3; display: flex; font-size: medium;">{{j.address}}</p>
     <form action="{% url 'apply' j.id %}" method="POST">

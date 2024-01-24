@@ -58,12 +58,22 @@ def applyView(request, jj):
 
 
 def jobsView(request):
-   jobs = Jobs.objects.all()
-   paginator = Paginator(jobs, 5)
-   page_number = request.GET.get("page")
-   page_obj = paginator.get_page(page_number)
-   opt = JobCategory.objects.all()
-   return render(request, 'jobs.html', {'page_obj' : page_obj, 'opt' : opt})
+
+   if request.method == 'POST':
+      selected = request.POST.get('selected_option')
+      jobs = Jobs.objects.filter(category=selected)
+      paginator = Paginator(jobs, 5)
+      page_number = request.GET.get("page")
+      page_obj = paginator.get_page(page_number)
+      opt = JobCategory.objects.all()
+      return render(request, 'jobs.html', {'page_obj' : page_obj, 'opt' : opt, 'selected' : selected})
+   else:
+    jobs = Jobs.objects.all()
+    paginator = Paginator(jobs, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    opt = JobCategory.objects.all()
+    return render(request, 'jobs.html', {'page_obj' : page_obj, 'opt' : opt})
 
 def job(request,jv):
    job = Jobs.objects.filter(id=jv)
