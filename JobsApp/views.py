@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Jobs,JobsUser, JobCategory
+from .models import Jobs,JobsUser, JobCategory, Blog
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -78,3 +78,15 @@ def jobsView(request):
 def job(request,jv):
    job = Jobs.objects.filter(id=jv)
    return render(request, "job.html", {'job' : job})
+
+def blog_list(request):
+    blogs = Blog.objects.all()
+    paginator = Paginator(blogs, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'blog.html', {'page_obj': page_obj})
+
+def blog_detail(request, pk):
+   blog = get_object_or_404(Blog, pk=pk)
+   return render(request, 'blog_detail.html', {'blog' : blog})
+

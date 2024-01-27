@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href='https://fonts.googleapis.com/css?family=Agbalumo' rel='stylesheet'>
     <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Agbalumo' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
+    <title>Blog</title>
 </head>
 <style>
-    body {
-        margin :0;
-        padding: 0;
-        font-family: 'Agbalumo';font-size: 22px;
+        body {
+  margin :0;
+  padding: 0;
+  font-family: 'Agbalumo';font-size: 22px;
 
-}
-.contain{
-    display: flex;
-        justify-content: center;
 }
 .nav ul {
   list-style-type: none;
@@ -60,23 +56,7 @@
     margin-top: 1rem;
     font-size: medium;
 }
-    .helptext{
-        font-size: small;
-        color: #9d4e00;
-
-}
-    .signup{
-        display: flex;
-        justify-self: center;
-        align-items: center;
-        flex-direction: column;
-        width: 50%;
-        margin-top: 20rem;
-        background-color: #ffeedc;
-        border-radius: 5rem;
-    }
-
-    form button{
+form button{
         background-color: #ffbc7a;
         color: rgb(255, 255, 255);
         padding: 14px 20px;
@@ -89,20 +69,24 @@
         margin-top: 3rem;
         border-radius: 1rem;
     }
-    form button:hover{
-        background-color: #fba754;
+    .pagination a{
+      text-decoration: none;
+      color: white;
+      background-color: #ffbc7a;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
     }
-    input[type=text], input[type=password] {
-        width: 100%;
-        height: 2.5rem;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border-radius: 0.8rem;
-        box-sizing: border-box;
-        font-size: medium;
-        background-color: rgb(255, 249, 241);
-}
+    .pagination{
+      display: flex;
+      justify-content: center;
+      margin: 1rem;
+    }
+    .current-page{
+      background-color: #ffbc7a;
+      margin-right:1rem ;
+      padding: 0.2rem;
+      border-radius: 1rem;
+    }
 </style>
 <body>
     <div class="nav">   
@@ -128,18 +112,28 @@
        
      </ul>
    </div>
+   <div style="display: flex; justify-content: center;  flex-shrink: 3; width: 100%; flex-wrap: wrap;">
+    {% for blog in page_obj %}
+   <div style="margin: 1.8rem; display: flex; flex-direction: column; align-items: center; width: 50%; justify-content: center; text-align: center; background-color: #ffeedc; padding: 1rem;border-radius: 1.5rem;">
+     <h2>{{ blog.title }}</h2>
+     <p style="font-size: medium; color: #9d4e00;">Author: {{ blog.author.username }}</p>
+     <p style="font-size: medium; color: #9d4e00;">Published: {{ blog.created_at }}</p>
+     <p style="text-overflow: ellipsis; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">{{ blog.content }}</p>
+     <a style="text-decoration: none;color: white;background-color: #ffbc7a;padding: 0.5rem;border-radius: 0.5rem;" href="{% url 'blog-detail' blog.id %}">Read more</a>
+   </div>
+ {% empty %}
+   <p>No blog posts available.</p>
+ {% endfor %}
 
-<div class="contain">
-        <div class="signup">
-        <h1>Signup</h1>    
-    <form action="" method="post">
-        {%csrf_token%}
-        {{form}}
-        <button type="submit">Sign up</button>
-    </form>
-     </div>
 </div>
-
+<div class="pagination">
+   {% if page_obj.has_previous %}
+       <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+   {% endif %}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">Next</a>
+   {% endif %}
+</div>
 
 </body>
 </html>
